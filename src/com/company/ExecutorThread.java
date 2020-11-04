@@ -10,8 +10,9 @@ public class ExecutorThread {
             });
             try {
                 Thread.sleep(5_000);
-                executor.shutdownNow();
-                executor.awaitTermination(3,TimeUnit.SECONDS);
+                if (!executor.awaitTermination(1,TimeUnit.SECONDS))
+                    executor.shutdownNow();
+
             } catch (InterruptedException ignore){}
         }
         static void print(String message) {
